@@ -1,0 +1,25 @@
+{
+  "name": "express-msgpack",
+  "version": "0.0.1",
+  "description": "Transparent messagepack middleware for Express",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/textbook/express-msgpack.git"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "messagepack",
+    "msgpack",
+    "json"
+  ],
+  "author": "Jonathan Sharpe <mail@jonrshar.pe>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/textbook/express-msgpack/issues"
+  },
+  "homepage": "https://github.com/textbook/express-msgpack#readme"
+}
