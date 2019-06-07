@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Transparent MessagePack middleware for Express",
   "main": "index.js",
+  "files": [],
   "scripts": {
     "install:peers": "node ./install-peers.js",
     "test": "jest",

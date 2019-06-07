@@ -16,13 +16,13 @@ Installation
 ------------
 
 ```bash
-$ npm install --save express-msgpack msgpack-lite
+$ npm install --save express-msgpack
 // or
-$ yarn add express-msgpack msgpack-lite
+$ yarn add express-msgpack
 ```
 
 If you intend to use an alternative to `msgpack-lite` (see Configuration) you
-can leave that out; it's an optional dependency.
+can add the `--no-optional` flag; it's an optional dependency.
 
 Usage
 -----
