@@ -1,7 +1,7 @@
 {
   "name": "express-msgpack",
   "version": "0.0.1",
-  "description": "Transparent messagepack middleware for Express",
+  "description": "Transparent MessagePack middleware for Express",
   "scripts": {
     "install:peers": "node ./install-peers.js",
     "test": "jest",
