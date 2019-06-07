@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "jest": "^24.8.0",
-    "msgpack": "^1.0.2",
     "npm": "^6.9.0",
     "supertest": "^4.0.2"
   },
