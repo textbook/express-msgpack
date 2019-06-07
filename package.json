@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "Transparent messagepack middleware for Express",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install:peers": "node ./install-peers.js",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,20 @@
   "bugs": {
     "url": "https://github.com/textbook/express-msgpack/issues"
   },
-  "homepage": "https://github.com/textbook/express-msgpack#readme"
+  "homepage": "https://github.com/textbook/express-msgpack#readme",
+  "optionalDependencies": {
+    "msgpack-lite": "^0.1.26"
+  },
+  "peerDependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "msgpack": "^1.0.2",
+    "npm": "^6.9.0",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "raw-body": "^2.4.0"
+  }
 }
