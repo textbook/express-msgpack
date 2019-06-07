@@ -1,0 +1,15 @@
+dist: xenial
+
+language: node_js
+
+node_js:
+  - '10'
+
+cache:
+  npm: true
+
+install:
+  - npm ci
+  - npm run install:peers
+
+script: npm test
