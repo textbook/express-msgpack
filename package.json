@@ -2,10 +2,14 @@
   "name": "express-msgpack",
   "version": "0.0.2",
   "description": "Transparent MessagePack middleware for Express",
-  "main": "index.js",
+  "main": "dist/index.js",
   "files": [],
   "scripts": {
+    "prebuild": "rimraf dist/*",
+    "build": "babel src --out-dir dist --ignore **/__tests__",
     "install:peers": "node ./install-peers.js",
+    "lint": "eslint .",
+    "ship": "npm run lint && npm test",
     "test": "jest",
     "test:watch": "npm run test -- --watch"
   },
@@ -33,8 +37,15 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-jest": "^22.6.4",
     "jest": "^24.8.0",
     "npm": "^6.9.0",
+    "rimraf": "^2.6.3",
     "supertest": "^4.0.2"
   },
   "dependencies": {

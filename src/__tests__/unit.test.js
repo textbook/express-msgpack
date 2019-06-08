@@ -1,14 +1,14 @@
 const readBody = require("raw-body");
 
-const expressMsgpack = require("../");
+const expressMsgpack = require("..");
 
 jest.mock("raw-body");
 
 describe("expressMsgpack", () => {
   const originalBody = "foo, bar, baz";
   const headers = {
-    'Content-Type': 'application/msgpack',
-    'Content-Length': 42,
+    "Content-Type": "application/msgpack",
+    "Content-Length": 42,
   };
 
   let req;
@@ -63,7 +63,7 @@ describe("expressMsgpack", () => {
       expect(res.format).toHaveBeenCalledWith(expect.any(Object));
       const methods = res.format.mock.calls[0][0];
 
-      methods['application/msgpack']();
+      methods["application/msgpack"]();
       expect(encoder).toHaveBeenCalledWith(originalBody);
       expect(res.send).toHaveBeenCalledWith(result);
     });

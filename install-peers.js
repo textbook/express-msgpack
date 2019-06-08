@@ -6,7 +6,7 @@ const { optionalDependencies, peerDependencies } = require("./package.json");
 
 const packages = (deps) => Object
   .keys(deps)
-  .map((package) => `${package}@${deps[package]}`);
+  .map((name) => `${name}@${deps[name]}`);
 
 npm.load({ save: false }, () => npm.commands.install([
   ...packages(peerDependencies),
