@@ -89,7 +89,7 @@ split into two files:
     Express app using the middleware
 
 There is also a `smoke/` directory containing smoke tests for a deployed
-version of the package, used by `smoke.sh`.
+version of the package, used by `bin/smoke.sh`.
 
 [Express]: https://expressjs.com/
 [Jest]: https://jestjs.io/

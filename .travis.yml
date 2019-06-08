@@ -36,4 +36,4 @@ deploy:
     tags: true
 
 after_deploy:
-  - ./smoke.sh
+  - ./bin/smoke.sh

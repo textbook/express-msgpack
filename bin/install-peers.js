@@ -2,7 +2,7 @@
 
 const npm = require("npm");
 
-const { optionalDependencies, peerDependencies } = require("./package.json");
+const { optionalDependencies, peerDependencies } = require("../package.json");
 
 const packages = (deps) => Object
   .keys(deps)

@@ -7,7 +7,7 @@
   "scripts": {
     "prebuild": "rimraf dist/*",
     "build": "babel src --out-dir dist --ignore **/__tests__",
-    "install:peers": "node ./install-peers.js",
+    "install:peers": "node ./bin/install-peers.js",
     "lint": "eslint .",
     "ship": "npm run lint && npm test",
     "test": "jest --modulePathIgnorePatterns '<rootDir>/smoke'",
