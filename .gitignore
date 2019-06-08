@@ -2,4 +2,6 @@ coverage/
 dist/
 node_modules/
 package/
+smoke/node_modules/
+smoke/package-lock.json
 *.tgz

@@ -64,12 +64,22 @@ app.use(msgpack({ decoder: unpack, encoder: pack }));
 Development
 -----------
 
+The project has code linting and testing, using the following commands:
+
+  - `npm run lint`: run the ESLint checks
+  - `npm run ship`: lint and test
+  - `npm test`: run the Jest unit and integration tests
+  - `npm test:watch`: run the tests in watch mode
+
 The tests are in the `__tests__/` directory and are run using [Jest]. They're
 split into two files:
 
   - `unit.test.js` - mockist unit tests, to check specific internal details
   - `integration.test.js` - integration tests using [SuperTest] with a simple
     Express app using the middleware
+
+There is also a `smoke/` directory containing smoke tests for a deployed
+version of the package, used by `smoke.sh`.
 
 [Express]: https://expressjs.com/
 [Jest]: https://jestjs.io/

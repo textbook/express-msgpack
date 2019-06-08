@@ -10,7 +10,7 @@
     "install:peers": "node ./install-peers.js",
     "lint": "eslint .",
     "ship": "npm run lint && npm test",
-    "test": "jest",
+    "test": "jest --modulePathIgnorePatterns '<rootDir>/smoke'",
     "test:watch": "npm run test -- --watch"
   },
   "repository": {
