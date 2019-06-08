@@ -64,6 +64,14 @@ app.use(msgpack({ decoder: unpack, encoder: pack }));
 Development
 -----------
 
+As `npm install` won't include peer or optional dependencies by default,
+there's an additional step required to set the package up for development:
+
+```bash
+$ npm install
+$ npm run install:peers
+```
+
 The project has code linting and testing, using the following commands:
 
   - `npm run lint`: run the ESLint checks
