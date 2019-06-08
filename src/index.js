@@ -1,5 +1,18 @@
 const readBody = require("raw-body");
 
+const bodyHandler = (options, req, next) => (err, body) => {
+  if (err) {
+    return next(err);
+  }
+  try {
+    req.body = options.decoder(body);
+  } catch (err) {
+    return next(err);
+  }
+  req._body = true;
+  next();
+};
+
 const expressMsgpack = (options = {}) => {
   if (!options.encoder) {
     options.encoder = require("msgpack-lite").encode;
@@ -20,18 +33,11 @@ const expressMsgpack = (options = {}) => {
 
     // Handle request
     if (/^application\/msgpack/.test(req.get("Content-Type"))) {
-      return readBody(req, { length: req.get("Content-Length") }, (err, body) => {
-        if (err) {
-          return next(err);
-        }
-        try {
-          req.body = options.decoder(body);
-        } catch (err) {
-          return next(err);
-        }
-        req._body = true;
-        next();
-      });
+      return readBody(
+        req,
+        { length: req.get("Content-Length") },
+        bodyHandler(options, req, next),
+      );
     }
 
     next();
