@@ -7,8 +7,8 @@ jest.mock("raw-body");
 describe("expressMsgpack", () => {
   const originalBody = "foo, bar, baz";
   const headers = {
-    "Content-Type": "application/msgpack",
-    "Content-Length": 42,
+    "content-type": "application/msgpack",
+    "content-length": 42,
   };
 
   let req;
@@ -19,8 +19,8 @@ describe("expressMsgpack", () => {
     readBody.mockClear();
     req = {
       body: originalBody,
-      get: jest.fn().mockImplementation((header) => headers[header]),
-      headers,
+      get: jest.fn().mockImplementation((header) => headers[header.toLowerCase()]),
+      header: jest.fn().mockImplementation((header) => headers[header.toLowerCase()]),
     };
     res = {
       format: jest.fn(),

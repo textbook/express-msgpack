@@ -32,10 +32,10 @@ const expressMsgpack = (options = {}) => {
     };
 
     // Handle request
-    if (/^application\/msgpack/.test(req.get("Content-Type"))) {
+    if (/^application\/msgpack/i.test(req.header("Content-Type"))) {
       return readBody(
         req,
-        { length: req.get("Content-Length") },
+        { length: req.header("Content-Length") },
         bodyHandler(options, req, next),
       );
     }
