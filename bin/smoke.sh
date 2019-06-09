@@ -8,5 +8,5 @@ PACKAGE="express-msgpack@$TRAVIS_TAG"
 pushd "$HERE/../smoke"
     npm ci
     npm install $PACKAGE --no-optional --no-save
-    npm test || npm deprecate $PACKAGE 'Smoke testing failed'
+    npm test || npm unpublish $PACKAGE 'Smoke testing failed'
 popd
