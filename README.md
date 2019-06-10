@@ -49,7 +49,7 @@ To configure, pass options when you configure the middleware. Currently supporte
 Parameter | Description | Default
 ----------|-------------|---------
 `decoder` | a function converting from MessagePack to JavaScript | `@msgpack/msgpack#decode`
-`encoder` | a function converting from JavaScript to MessagePack | `@msgpack/msgpack#encode`
+`encoder` | a function converting from JavaScript to MessagePack | `@msgpack/msgpack#encode` (with a wrapper to convert the result to a Buffer)
 `mimeType` | the MIME type to detect and set for MessagePack payloads | `"application/msgpack"`
 
 For example, to switch to the node-gyp C++ based [msgpack] library:
