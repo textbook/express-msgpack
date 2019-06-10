@@ -20,6 +20,9 @@ const expressMsgpack = (options = {}) => {
   if (!options.decoder) {
     options.decoder = require("msgpack-lite").decode;
   }
+  if (!options.mimeType) {
+    options.mimeType = "application/msgpack";
+  }
 
   return (req, res, next) => {
     // Handle response
@@ -27,12 +30,12 @@ const expressMsgpack = (options = {}) => {
     res.json = (body) => {
       res.format({
         "application/json": () => _json.call(res, body),
-        "application/msgpack": () => res.send(options.encoder(body)),
+        [options.mimeType]: () => res.send(options.encoder(body)),
       });
     };
 
     // Handle request
-    if (/^application\/msgpack/i.test(req.header("Content-Type"))) {
+    if (new RegExp(`^${options.mimeType}`, "i").test(req.header("Content-Type"))) {
       return readBody(
         req,
         { length: req.header("Content-Length") },

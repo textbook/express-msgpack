@@ -45,10 +45,11 @@ Configuration
 
 To configure, pass options when you configure the middleware. Currently supported options are:
 
-  - `encoder`: a function converting from JavaScript to MessagePack (default:
-    `msgpack-lite#encode`)
-  - `decoder`: a function converting from MessagePack to JavaScript (default:
-    `msgpack-lite#decode`)
+Parameter | Description | Default
+----------|-------------|---------
+`decoder` | a function converting from MessagePack to JavaScript | `msgpack-lite#decode`
+`encoder` | a function converting from JavaScript to MessagePack | `msgpack-lite#encode`
+`mimeType` | the MIME type to detect and set for MessagePack payloads | `"application/msgpack"`
 
 For example, to switch to the node-gyp C++ based [msgpack] library:
 
