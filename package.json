@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/textbook/express-msgpack#readme",
   "optionalDependencies": {
-    "msgpack-lite": "^0.1.26"
+    "@msgpack/msgpack": "^1.3.2"
   },
   "peerDependencies": {
     "express": "^4.17.1"

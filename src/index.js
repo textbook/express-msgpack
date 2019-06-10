@@ -14,8 +14,13 @@ const bodyHandler = (options, req, next) => (err, body) => {
 };
 
 const expressMsgpack = (options = {}) => {
-  options.encoder = options.encoder || require("msgpack-lite").encode;
-  options.decoder = options.decoder || require("msgpack-lite").decode;
+  options.encoder = options.encoder || ((body) => {
+    if (!options._encode) {
+      options._encode = require("@msgpack/msgpack").encode;
+    }
+    return Buffer.from(options._encode(body));
+  });
+  options.decoder = options.decoder || require("@msgpack/msgpack").decode;
   options.mimeType = options.mimeType || "application/msgpack";
 
   return (req, res, next) => {

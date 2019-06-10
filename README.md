@@ -7,7 +7,7 @@ Express Msgpack
 [![Maintainability](https://api.codeclimate.com/v1/badges/e9a820ea77a01c1ba8bb/maintainability)](https://codeclimate.com/github/textbook/express-msgpack/maintainability)
 [![NPM Version](https://img.shields.io/npm/v/express-msgpack.svg)](https://www.npmjs.com/package/express-msgpack)
 
-[Express] and [MessagePack], together at last. Uses [`msgpack-lite`][1] by default.
+[Express] and [MessagePack], together at last. Uses [`@msgpack/msgpack`][1] by default.
 
 Functionality
 -------------
@@ -16,7 +16,8 @@ Provides transparent middleware that can be used to support clients requesting
 `Accept: application/msgpack` from endpoints using `res.json` or sending
 `Content-Type: application/msgpack` to any endpoint. You can continue to use
 `req.body` and `res.json` and `expressMsgpack` will handle the conversion in
-the background using `msgpack-lite` or any compatible library of your choice.
+the background using `@msgpack/msgpack` (or any compatible library of your
+choice).
 
 Installation
 ------------
@@ -27,8 +28,8 @@ $ npm install --save express-msgpack
 $ yarn add express-msgpack
 ```
 
-If you intend to use an alternative to `msgpack-lite` (see Configuration) you
-can add the `--no-optional` flag; it's an optional dependency.
+If you intend to use an alternative to `@msgpack/msgpack` (see Configuration)
+you can add the `--no-optional` flag; it's an optional dependency.
 
 Usage
 -----
@@ -47,8 +48,8 @@ To configure, pass options when you configure the middleware. Currently supporte
 
 Parameter | Description | Default
 ----------|-------------|---------
-`decoder` | a function converting from MessagePack to JavaScript | `msgpack-lite#decode`
-`encoder` | a function converting from JavaScript to MessagePack | `msgpack-lite#encode`
+`decoder` | a function converting from MessagePack to JavaScript | `@msgpack/msgpack#decode`
+`encoder` | a function converting from JavaScript to MessagePack | `@msgpack/msgpack#encode`
 `mimeType` | the MIME type to detect and set for MessagePack payloads | `"application/msgpack"`
 
 For example, to switch to the node-gyp C++ based [msgpack] library:
@@ -95,4 +96,4 @@ version of the package, used by `smoke.sh`.
 [MessagePack]: https://msgpack.org/
 [msgpack]: https://www.npmjs.com/package/msgpack
 [SuperTest]: https://github.com/visionmedia/supertest
-[1]: https://www.npmjs.com/package/msgpack-lite
+[1]: https://www.npmjs.com/package/@msgpack/msgpack
