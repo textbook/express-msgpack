@@ -18,8 +18,5 @@
       }
     }
   ],
-  "parser": "babel-eslint",
-  "rules": {
-    "indent": ["error", 2]
-  }
+  "parser": "babel-eslint"
 }
