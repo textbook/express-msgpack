@@ -1,11 +1,10 @@
 const express = require("express");
 const msgpack = require("express-msgpack");
-const { pack, unpack } = require("msgpack");
 const request = require("supertest");
 
 const app = express();
 app.use(express.json());
-app.use(msgpack({ decoder: unpack, encoder: pack }));
+app.use(msgpack());
 app.post("/test", (req, res) => res.json(req.body));
 
 const json = {

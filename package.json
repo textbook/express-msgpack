@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/textbook/express-msgpack#readme",
   "optionalDependencies": {
-    "@msgpack/msgpack": "^1.3.2"
+    "@msgpack/msgpack": "^1.3.2 || ^2.0.0"
   },
   "peerDependencies": {
     "express": "^4.17.1"
@@ -43,7 +43,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^7.0.0",
     "eslint-plugin-jest": "^24.0.0",
-    "jest": "^26.0.0",
+    "jest": "^26.4.2",
     "npm": "^6.9.0",
     "rimraf": "^3.0.0",
     "supertest": "^4.0.2"

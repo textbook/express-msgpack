@@ -4,10 +4,7 @@
   "private": true,
   "dependencies": {
     "express": "^4.17.1",
-    "msgpack": "^1.0.2"
-  },
-  "devDependencies": {
-    "jest": "^24.8.0",
+    "jest": "^26.4.2",
     "supertest": "^4.0.2"
   },
   "scripts": {
