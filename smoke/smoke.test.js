@@ -43,10 +43,7 @@ it("handles msgpack -> msgpack", async () => {
     .set("Accept", "application/msgpack")
     .set("Content-Type", "application/msgpack")
     .expect("Content-Type", /^application\/msgpack/)
-    .expect(200)
-    .then((response) => {
-      expect(response.text).toEqual(text);
-    });
+    .expect(200, text);
 });
 
 it("handles msgpack -> json", async () => {
@@ -56,10 +53,7 @@ it("handles msgpack -> json", async () => {
     .set("Accept", "application/json")
     .set("Content-Type", "application/msgpack")
     .expect("Content-Type", /^application\/json/)
-    .expect(200)
-    .then((response) => {
-      expect(response.body).toEqual(json);
-    });
+    .expect(200, json);
 });
 
 it("handles json -> msgpack", async () => {
@@ -68,10 +62,7 @@ it("handles json -> msgpack", async () => {
     .send(json)
     .set("Accept", "application/msgpack")
     .expect("Content-Type", /^application\/msgpack/)
-    .expect(200)
-    .then((response) => {
-      expect(response.text).toEqual(text);
-    });
+    .expect(200, text);
 });
 
 it("ignores json -> json", async () => {
@@ -79,8 +70,5 @@ it("ignores json -> json", async () => {
     .post("/test")
     .send(json)
     .expect("Content-Type", /^application\/json/)
-    .expect(200)
-    .then((response) => {
-      expect(response.body).toEqual(json);
-    });
+    .expect(200, json);
 });

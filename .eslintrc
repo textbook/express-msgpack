@@ -5,6 +5,19 @@
   "extends": [
     "eslint:recommended"
   ],
+  "overrides": [
+    {
+      "extends": [
+        "plugin:jest/recommended"
+      ],
+      "files": [
+        "**/*.test.js"
+      ],
+      "rules": {
+        "jest/expect-expect": "off"
+      }
+    }
+  ],
   "parser": "babel-eslint",
   "rules": {
     "arrow-parens": "error",
