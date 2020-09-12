@@ -76,8 +76,9 @@ $ npm run install:peers
 
 The project has code linting and testing, using the following commands:
 
+  - `npm run e2e`: run the smoke/E2E tests
   - `npm run lint`: run the ESLint checks
-  - `npm run ship`: lint and test
+  - `npm run ship`: lint and run unit, integration and E2E tests
   - `npm test`: run the Jest unit and integration tests
   - `npm test:watch`: run the tests in watch mode
 
@@ -88,8 +89,10 @@ split into two files:
   - `integration.test.js` - integration tests using [SuperTest] with a simple
     Express app using the middleware
 
-There is also a `smoke/` directory containing smoke tests for a deployed
-version of the package, used by `bin/smoke.sh`.
+There is also a `smoke/` directory containing E2E/smoke tests for a deployed
+version of the package, used by `bin/smoke.sh`. If the `--local` argument is
+supplied to the script the local version is packaged and tested , otherwise
+the specified `TRAVIS_TAG` version is installed from the registry and tested.
 
 [Express]: https://expressjs.com/
 [Jest]: https://jestjs.io/

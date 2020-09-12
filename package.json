@@ -7,9 +7,10 @@
   "scripts": {
     "prebuild": "rimraf dist/*",
     "build": "babel src --out-dir dist --ignore **/__tests__",
+    "e2e": "./bin/smoke.sh --local",
     "install:peers": "node ./bin/install-peers.js",
     "lint": "eslint .",
-    "ship": "npm run lint && npm test",
+    "ship": "npm run lint && npm test && npm run e2e",
     "test": "jest --modulePathIgnorePatterns '<rootDir>/smoke'",
     "test:watch": "npm run test -- --watch"
   },
