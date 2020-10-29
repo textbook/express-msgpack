@@ -47,7 +47,7 @@
     "jest": "^26.4.2",
     "npm": "^6.9.0",
     "rimraf": "^3.0.0",
-    "supertest": "^5.0.0"
+    "supertest": "^6.0.0"
   },
   "dependencies": {
     "raw-body": "^2.4.0"
