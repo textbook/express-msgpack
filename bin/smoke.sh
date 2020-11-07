@@ -12,7 +12,7 @@ if [[ "$1" =~ '--local' ]]; then
     popd
     PACKAGE="$HERE/../express-msgpack-$PACKAGE_VERSION.tgz"
 else
-    PACKAGE="express-msgpack@$TRAVIS_TAG"
+    PACKAGE="express-msgpack@$TAG"
 fi
 
 pushd "$HERE/../smoke"

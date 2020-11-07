@@ -1,0 +1,56 @@
+name: Node.js CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10'
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: express-msgpack-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          express-msgpack-${{ hashFiles('**/package-lock.json') }}
+          express-msgpack-
+    - run: npm ci
+    - run: npm run install:peers
+    - run: npm run lint
+    - run: npm run test -- --coverage
+    - uses: paambaati/codeclimate-action@v2.7.4
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+    - run: npm run e2e
+  deploy:
+    runs-on: ubuntu-18.04
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get full tag
+      id: full_tag
+      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10'
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: express-msgpack-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          express-msgpack-${{ hashFiles('**/package-lock.json') }}
+          express-msgpack-
+    - run: npm ci
+    - run: npm run build
+    - run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > ~/.npmrc
+    - run: npm publish
+      env:
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+    - run: ./bin/smoke.sh
+      env:
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        TAG: ${{ steps.full_tag.outputs.VERSION }}

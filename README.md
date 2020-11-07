@@ -2,7 +2,7 @@ Express Msgpack
 ===============
 
 [![License](https://img.shields.io/github/license/textbook/express-msgpack.svg)](https://github.com/textbook/express-msgpack/blob/main/LICENSE)
-[![Build Status](https://travis-ci.com/textbook/express-msgpack.svg?branch=main)](https://travis-ci.com/textbook/express-msgpack)
+[![Build Status](https://github.com/textbook/express-msgpack/workflows/Node.js%20CI/badge.svg)](https://github.com/textbook/express-msgpack/actions)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e9a820ea77a01c1ba8bb/test_coverage)](https://codeclimate.com/github/textbook/express-msgpack/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e9a820ea77a01c1ba8bb/maintainability)](https://codeclimate.com/github/textbook/express-msgpack/maintainability)
 [![NPM Version](https://img.shields.io/npm/v/express-msgpack.svg)](https://www.npmjs.com/package/express-msgpack)
@@ -92,7 +92,7 @@ split into two files:
 There is also a `smoke/` directory containing E2E/smoke tests for a deployed
 version of the package, used by `bin/smoke.sh`. If the `--local` argument is
 supplied to the script the local version is packaged and tested , otherwise
-the specified `TRAVIS_TAG` version is installed from the registry and tested.
+the specified `$TAG` version is installed from the registry and tested.
 
 [Express]: https://expressjs.com/
 [Jest]: https://jestjs.io/
