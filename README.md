@@ -2,7 +2,7 @@ Express Msgpack
 ===============
 
 [![License](https://img.shields.io/github/license/textbook/express-msgpack.svg)](https://github.com/textbook/express-msgpack/blob/main/LICENSE)
-[![Build Status](https://github.com/textbook/express-msgpack/workflows/Node.js%20CI/badge.svg)](https://github.com/textbook/express-msgpack/actions)
+[![Build Status](https://github.com/textbook/express-msgpack/workflows/Node.js%20CI/badge.svg?branch=main)](https://github.com/textbook/express-msgpack/actions)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e9a820ea77a01c1ba8bb/test_coverage)](https://codeclimate.com/github/textbook/express-msgpack/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e9a820ea77a01c1ba8bb/maintainability)](https://codeclimate.com/github/textbook/express-msgpack/maintainability)
 [![NPM Version](https://img.shields.io/npm/v/express-msgpack.svg)](https://www.npmjs.com/package/express-msgpack)
