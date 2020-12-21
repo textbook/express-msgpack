@@ -22,9 +22,11 @@ jobs:
     - run: npm run install:peers
     - run: npm run lint
     - run: npm run test -- --coverage
-    - uses: paambaati/codeclimate-action@v2.7.4
+    - uses: deivid-rodriguez/codeclimate-action@247bc60
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        testReporterVersion: 0.8.0
     - run: npm run e2e
   deploy:
     runs-on: ubuntu-18.04
