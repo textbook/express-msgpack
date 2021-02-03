@@ -46,7 +46,7 @@
     "eslint": "^7.0.0",
     "eslint-plugin-jest": "^24.0.0",
     "jest": "^26.4.2",
-    "npm": "^6.9.0",
+    "npm": "^7.5.2",
     "rimraf": "^3.0.0",
     "supertest": "^6.0.0"
   },
