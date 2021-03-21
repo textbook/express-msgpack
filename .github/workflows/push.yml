@@ -19,7 +19,6 @@ jobs:
           express-msgpack-${{ hashFiles('**/package-lock.json') }}
           express-msgpack-
     - run: npm ci
-    - run: npm run install:peers
     - run: npm run lint
     - run: npm run test -- --coverage
     - uses: paambaati/codeclimate-action@v2.7.4

@@ -8,7 +8,6 @@
     "prebuild": "rimraf dist/*",
     "build": "babel src --out-dir dist --ignore **/__tests__",
     "e2e": "./bin/smoke.sh --local",
-    "install:peers": "node ./bin/install-peers.js",
     "lint": "eslint .",
     "ship": "npm run lint && npm test && npm run e2e",
     "test": "jest --modulePathIgnorePatterns '<rootDir>/smoke'",
@@ -45,8 +44,8 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^7.0.0",
     "eslint-plugin-jest": "^24.0.0",
+    "express": "^4.17.1",
     "jest": "^26.4.2",
-    "npm": "^6.9.0",
     "rimraf": "^3.0.0",
     "supertest": "^6.0.0"
   },
