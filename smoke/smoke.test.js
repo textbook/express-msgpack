@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const express = require("express");
-const msgpack = require("express-msgpack");
+const { default: msgpack } = require("express-msgpack");
 const request = require("supertest");
 
 const app = express();

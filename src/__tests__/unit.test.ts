@@ -1,32 +1,36 @@
-const readBody = require("raw-body");
+import { NextFunction, Request, Response } from "express";
+import readBody from "raw-body";
 
-const expressMsgpack = require("..");
+import expressMsgpack from "..";
 
 jest.mock("raw-body");
 
 describe("expressMsgpack", () => {
 	const originalBody = "foo, bar, baz";
-	const headers = {
+	const headers: { [key: string]: unknown } = {
 		"content-type": "application/msgpack",
 		"content-length": 42,
 	};
 
-	let req;
-	let res;
-	let next;
+	let req: Request;
+	let res: Response;
+	let next: jest.Mock<NextFunction>;
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const readBodyMock: jest.Mock<typeof readBody> = readBody as any;
 
 	beforeEach(() => {
-		readBody.mockClear();
+		readBodyMock.mockClear();
 		req = {
 			body: originalBody,
-			get: jest.fn().mockImplementation((header) => headers[header.toLowerCase()]),
-			header: jest.fn().mockImplementation((header) => headers[header.toLowerCase()]),
-		};
+			get: jest.fn().mockImplementation((header: string) => headers[header.toLowerCase()]),
+			header: jest.fn().mockImplementation((header: string) => headers[header.toLowerCase()]),
+		} as unknown as Request;
 		res = {
 			format: jest.fn(),
 			json: jest.fn(),
 			send: jest.fn(),
-		};
+		} as unknown as Response;
 		next = jest.fn();
 	});
 
@@ -35,8 +39,8 @@ describe("expressMsgpack", () => {
 
 		expressMsgpack()(req, res, next);
 
-		expect(readBody).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
-		const [, , callback] = readBody.mock.calls[0];
+		expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
+		const [, , callback] = readBodyMock.mock.calls[0];
 
 		callback(error);
 		expect(next).toHaveBeenCalledWith(error);
@@ -45,8 +49,8 @@ describe("expressMsgpack", () => {
 	it("handles error decoding the body", () => {
 		expressMsgpack()(req, res, next);
 
-		expect(readBody).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
-		const [, , callback] = readBody.mock.calls[0];
+		expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
+		const [, , callback] = readBodyMock.mock.calls[0];
 
 		callback(null, {});
 		expect(next).toHaveBeenCalledWith(expect.any(Error));
@@ -61,7 +65,7 @@ describe("expressMsgpack", () => {
 			res.json(originalBody);
 
 			expect(res.format).toHaveBeenCalledWith(expect.any(Object));
-			const methods = res.format.mock.calls[0][0];
+			const methods = (res.format as jest.Mock).mock.calls[0][0];
 
 			methods["application/msgpack"]();
 			expect(encoder).toHaveBeenCalledWith(originalBody);
@@ -74,8 +78,8 @@ describe("expressMsgpack", () => {
 
 			expressMsgpack({ decoder })(req, res, next);
 
-			expect(readBody).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
-			const [, , callback] = readBody.mock.calls[0];
+			expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
+			const [, , callback] = readBodyMock.mock.calls[0];
 
 			callback(null, originalBody);
 			expect(decoder).toHaveBeenCalledWith(originalBody);

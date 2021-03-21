@@ -1,17 +1,17 @@
-const express = require("express");
-const request = require("supertest");
+import express, { Express, RequestHandler } from "express";
+import request from "supertest";
 
-const msgpack = require("../index");
+import msgpack from "..";
 
 const unpacked = { hello: "world" };
 const raw = Buffer.from([129, 165, 104, 101, 108, 108, 111, 165, 119, 111, 114, 108, 100]);
 const packed = raw.toString("utf8");
 
-const createApp = (middleware) => {
+const createApp = (middleware: RequestHandler): Express => {
 	const app = express();
 	app.use(express.json());
 	app.use(middleware);
-	app.get("/api", (req, res) => {
+	app.get("/api", (_, res) => {
 		res.json(unpacked);
 	});
 	app.post("/api", (req, res) => {
@@ -21,7 +21,7 @@ const createApp = (middleware) => {
 };
 
 describe("expressMsgpack", () => {
-	let app;
+	let app: Express;
 
 	describe("default settings", () => {
 		beforeEach(() => {

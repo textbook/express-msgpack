@@ -3,20 +3,21 @@
     "node": true
   },
   "extends": [
-    "@codeyourfuture/standard"
+    "@codeyourfuture/standard",
+    "plugin:@typescript-eslint/recommended"
   ],
   "overrides": [
     {
-      "extends": [
-        "plugin:jest/recommended"
-      ],
-      "files": [
-        "**/*.test.js"
-      ],
+      "extends": ["plugin:jest/recommended"],
+      "files": ["**/*.test.js", "**/*.test.ts"],
       "rules": {
-        "jest/expect-expect": "off"
+        "jest/expect-expect": [
+          "error",
+          { "assertFunctionNames": ["expect", "request.**.expect"] }
+        ]
       }
     }
   ],
-  "parser": "babel-eslint"
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"]
 }

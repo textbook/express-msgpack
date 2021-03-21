@@ -35,7 +35,7 @@ Usage
 -----
 
 ```javascript
-const msgpack = require("express-msgpack");
+const { default: msgpack } = require("express-msgpack");
 
 // ...
 app.use(msgpack());
@@ -56,7 +56,7 @@ For example, to switch to the node-gyp C++ based [msgpack] library:
 
 ```javascript
 const { pack, unpack } = require("msgpack");
-const msgpack = require("express-msgpack");
+const { default: msgpack } = require("express-msgpack");
 
 // ...
 
@@ -77,8 +77,8 @@ The project has code linting and testing, using the following commands:
 The tests are in the `__tests__/` directory and are run using [Jest]. They're
 split into two files:
 
-  - `unit.test.js` - mockist unit tests, to check specific internal details
-  - `integration.test.js` - integration tests using [SuperTest] with a simple
+  - `unit.test.ts` - mockist unit tests, to check specific internal details
+  - `integration.test.ts` - integration tests using [SuperTest] with a simple
     Express app using the middleware
 
 There is also a `smoke/` directory containing E2E/smoke tests for a deployed
