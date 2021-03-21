@@ -8,33 +8,8 @@ export interface ExpressMsgpackOptions {
 	mimeType: string;
 }
 
-const bodyHandler = (options: ExpressMsgpackOptions, req: Request, next: NextFunction) => (err: Error, body: Buffer) => {
-	if (err) {
-		return next(err);
-	}
-	try {
-		req.body = options.decoder(body);
-	} catch (err) {
-		return next(err);
-	}
-	(req as Request & { _body: boolean })._body = true;
-	next();
-};
-
-const expressMsgpack = (overrides: Partial<ExpressMsgpackOptions> = {}): RequestHandler => {
-	const options: ExpressMsgpackOptions & { _encode?: ExpressMsgpackOptions["encoder"] } = {
-		decoder: overrides.decoder || require("@msgpack/msgpack").decode,
-		encoder: overrides.encoder || ((body) => {
-			if (!options._encode) {
-				const encoder = require("@msgpack/msgpack").encode;
-				options._encode = encoder;
-				return Buffer.from(encoder(body));
-			} else {
-				return Buffer.from(options._encode(body));
-			}
-		}),
-		mimeType: overrides.mimeType || "application/msgpack",
-	};
+export default (overrides: Partial<ExpressMsgpackOptions> = {}): RequestHandler => {
+	const options = createOptions(overrides);
 
 	return (req, res, next) => {
 		// Handle response
@@ -59,4 +34,32 @@ const expressMsgpack = (overrides: Partial<ExpressMsgpackOptions> = {}): Request
 	};
 };
 
-export default expressMsgpack;
+const bodyHandler = (options: ExpressMsgpackOptions, req: Request, next: NextFunction) => (err: Error, body: Buffer) => {
+	if (err) {
+		return next(err);
+	}
+	try {
+		req.body = options.decoder(body);
+	} catch (err) {
+		return next(err);
+	}
+	(req as Request & { _body: boolean })._body = true;
+	next();
+};
+
+const createOptions = (overrides: Partial<ExpressMsgpackOptions>): ExpressMsgpackOptions => {
+	const options: ExpressMsgpackOptions & { _encode?: ExpressMsgpackOptions["encoder"] } = {
+		decoder: overrides.decoder || require("@msgpack/msgpack").decode,
+		encoder: overrides.encoder || ((body) => {
+			if (!options._encode) {
+				const encoder = require("@msgpack/msgpack").encode;
+				options._encode = encoder;
+				return Buffer.from(encoder(body));
+			} else {
+				return Buffer.from(options._encode(body));
+			}
+		}),
+		mimeType: overrides.mimeType || "application/msgpack",
+	};
+	return options;
+};
