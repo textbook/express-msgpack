@@ -23,7 +23,7 @@ jobs:
     - run: npm run test -- --coverage
     - uses: paambaati/codeclimate-action@v2.7.4
       env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        CC_TEST_REPORTER_ID: 47283c50a0f1654abe1454ac936de832b4c668e579eb10c1aefa1545e4e77e1d
     - run: npm run e2e
   deploy:
     runs-on: ubuntu-18.04
