@@ -2,8 +2,10 @@
 import readBody from "raw-body";
 import { NextFunction, Request, RequestHandler } from "express";
 
+type Encoder = (body: unknown) => Buffer;
+
 export interface ExpressMsgpackOptions {
-	encoder: (body: unknown) => Buffer;
+	encoder: Encoder;
 	decoder: (body: Buffer) => unknown;
 	mimeType: string;
 }
@@ -48,16 +50,13 @@ const bodyHandler = (options: ExpressMsgpackOptions, req: Request, next: NextFun
 };
 
 const createOptions = (overrides: Partial<ExpressMsgpackOptions>): ExpressMsgpackOptions => {
-	const options: ExpressMsgpackOptions & { _encode?: ExpressMsgpackOptions["encoder"] } = {
+	const options: ExpressMsgpackOptions & { _encode?: Encoder } = {
 		decoder: overrides.decoder || require("@msgpack/msgpack").decode,
 		encoder: overrides.encoder || ((body) => {
 			if (!options._encode) {
-				const encoder = require("@msgpack/msgpack").encode;
-				options._encode = encoder;
-				return Buffer.from(encoder(body));
-			} else {
-				return Buffer.from(options._encode(body));
+				options._encode = require("@msgpack/msgpack").encode;
 			}
+			return Buffer.from((options._encode as Encoder)(body));
 		}),
 		mimeType: overrides.mimeType || "application/msgpack",
 	};
