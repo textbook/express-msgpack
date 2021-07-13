@@ -1,0 +1,18 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  assignees:
+  - textbook
+- package-ecosystem: npm
+  directory: "/smoke"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  assignees:
+  - textbook
+  labels:
+  - smoke
