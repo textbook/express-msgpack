@@ -40,7 +40,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "@codeyourfuture/eslint-config-standard": "^2.0.2",
+    "@codeyourfuture/eslint-config-standard": "^3.0.0",
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.21",
     "@types/node": "^16.0.0",
