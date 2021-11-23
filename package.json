@@ -45,10 +45,10 @@
     "@types/jest": "^27.0.3",
     "@types/node": "^16.0.0",
     "@types/supertest": "^2.0.10",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "eslint": "^7.0.0",
-    "eslint-plugin-jest": "^24.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.3.0",
+    "eslint-plugin-jest": "^25.3.0",
     "express": "^4.17.1",
     "jest": "^27.0.1",
     "rimraf": "^3.0.0",
@@ -62,5 +62,8 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node"
+  },
+  "engines": {
+    "node": ">=12.9.0"
   }
 }
