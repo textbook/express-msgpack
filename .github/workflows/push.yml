@@ -10,16 +10,10 @@ jobs:
         node: [ '12', '14', '16' ]
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node }}
-    - uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: express-msgpack-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          express-msgpack-${{ hashFiles('**/package-lock.json') }}
-          express-msgpack-
+        cache: 'npm'
     - run: npm ci
     - run: npm run lint
     - run: npm run test -- --coverage
@@ -36,22 +30,16 @@ jobs:
     - name: Get full tag
       id: full_tag
       run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v2
       with:
         node-version: '16'
-    - uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: express-msgpack-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          express-msgpack-${{ hashFiles('**/package-lock.json') }}
-          express-msgpack-
+        cache: 'npm'
     - run: npm ci
     - run: npm run build
-    - run: echo '//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}' > ~/.npmrc
-    - run: npm publish
+    - run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
       env:
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+    - run: npm publish
     - run: ./bin/smoke.sh
       env:
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
