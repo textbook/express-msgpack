@@ -1,6 +1,6 @@
 {
   "name": "express-msgpack",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Transparent MessagePack middleware for Express",
   "main": "dist/index.js",
   "files": [
