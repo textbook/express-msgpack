@@ -4,7 +4,7 @@
   "description": "Transparent MessagePack middleware for Express",
   "main": "dist/index.js",
   "files": [
-    "dist/index.d.ts"
+    "dist/"
   ],
   "scripts": {
     "prebuild": "rimraf dist/*",
@@ -12,7 +12,7 @@
     "e2e": "./bin/smoke.sh --local",
     "lint": "eslint . --ext=.js,.ts",
     "ship": "npm run lint && npm test && npm run e2e",
-    "test": "jest --modulePathIgnorePatterns '<rootDir>/smoke'",
+    "test": "jest",
     "test:watch": "npm run test -- --watch"
   },
   "repository": {
@@ -61,6 +61,9 @@
     "raw-body": "^2.4.0"
   },
   "jest": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/smoke"
+    ],
     "preset": "ts-jest",
     "testEnvironment": "node"
   },
