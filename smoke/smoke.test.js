@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const express = require("express");
-const { default: msgpack } = require("express-msgpack");
-const request = require("supertest");
+import express from "express";
+import msgpack from "express-msgpack";
+import request from "supertest";
 
 const app = express();
 app.use(express.json());

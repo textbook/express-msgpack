@@ -1,42 +1,46 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import readBody from "raw-body";
 import { NextFunction, Request, RequestHandler } from "express";
-
-type Encoder = (body: unknown) => Buffer;
+import readBody from "raw-body";
 
 export interface ExpressMsgpackOptions {
-	encoder: Encoder;
+	encoder: (body: unknown) => Buffer;
 	decoder: (body: Buffer) => unknown;
 	mimeType: string;
 }
 
 export default (overrides: Partial<ExpressMsgpackOptions> = {}): RequestHandler => {
-	const options = createOptions(overrides);
+	const optionsPromise = createOptions(overrides);
 
-	return (req, res, next) => {
-		// Handle response
-		const _json = res.json;
-		res.json = (body) => {
-			return res.format({
-				"application/json": () => _json.call(res, body),
-				[options.mimeType]: () => res.send(options.encoder(body)),
-			});
-		};
+	return async (req, res, next) => {
+		try {
+			const options = await optionsPromise;
+			// Handle response
+			const _json = res.json;
+			res.json = (body) => {
+				return res.format({
+					"application/json": () => _json.call(res, body),
+					[options.mimeType]: () => res.send(options.encoder(body)),
+				});
+			};
 
-		// Handle request
-		if (new RegExp(`^${options.mimeType}`, "i").test(req.header("Content-Type") || "")) {
-			return readBody(
-				req,
-				{ length: req.header("Content-Length") },
-				bodyHandler(options, req, next)
-			);
+			// Handle request
+			if (new RegExp(`^${options.mimeType}`, "i").test(req.header("Content-Type") ?? "")) {
+				return readBody(
+					req,
+					{ length: req.header("Content-Length") },
+					bodyHandler(options, req, next)
+				);
+			}
+
+			next();
+		} catch (err) {
+			next(err);
 		}
-
-		next();
 	};
 };
 
-const bodyHandler = (options: ExpressMsgpackOptions, req: Request, next: NextFunction) => (err: Error, body: Buffer) => {
+type ReadBodyCallback = (err: Error, body: Buffer) => void;
+
+const bodyHandler = (options: ExpressMsgpackOptions, req: Request, next: NextFunction): ReadBodyCallback => (err, body) => {
 	if (err) {
 		return next(err);
 	}
@@ -49,16 +53,13 @@ const bodyHandler = (options: ExpressMsgpackOptions, req: Request, next: NextFun
 	next();
 };
 
-const createOptions = (overrides: Partial<ExpressMsgpackOptions>): ExpressMsgpackOptions => {
-	const options: ExpressMsgpackOptions & { _encode?: Encoder } = {
-		decoder: overrides.decoder || require("@msgpack/msgpack").decode,
-		encoder: overrides.encoder || ((body) => {
-			if (!options._encode) {
-				options._encode = require("@msgpack/msgpack").encode;
-			}
-			return Buffer.from((options._encode as Encoder)(body));
-		}),
-		mimeType: overrides.mimeType || "application/msgpack",
+const createOptions = async (overrides: Partial<ExpressMsgpackOptions>): Promise<ExpressMsgpackOptions> => {
+	return {
+		decoder: overrides.decoder
+			?? await import("@msgpack/msgpack").then(({ decode }) => decode),
+		encoder: overrides.encoder
+			?? await import("@msgpack/msgpack").then(({ encode }) => (body) => Buffer.from(encode(body))),
+		mimeType: overrides.mimeType
+			?? "application/msgpack",
 	};
-	return options;
 };

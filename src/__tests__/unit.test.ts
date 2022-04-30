@@ -34,10 +34,10 @@ describe("expressMsgpack", () => {
 		next = jest.fn();
 	});
 
-	it("handles error reading the body", () => {
+	it("handles error reading the body", async () => {
 		const error = "oh no!";
 
-		expressMsgpack()(req, res, next);
+		await expressMsgpack()(req, res, next);
 
 		expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
 		const [, , callback] = readBodyMock.mock.calls[0];
@@ -46,8 +46,8 @@ describe("expressMsgpack", () => {
 		expect(next).toHaveBeenCalledWith(error);
 	});
 
-	it("handles error decoding the body", () => {
-		expressMsgpack()(req, res, next);
+	it("handles error decoding the body", async () => {
+		await expressMsgpack()(req, res, next);
 
 		expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
 		const [, , callback] = readBodyMock.mock.calls[0];
@@ -57,11 +57,11 @@ describe("expressMsgpack", () => {
 	});
 
 	describe("configuration", () => {
-		it("allows you to swap out the encoder", () => {
+		it("allows you to swap out the encoder", async () => {
 			const result = "hello, world";
 			const encoder = jest.fn().mockReturnValue(result);
 
-			expressMsgpack({ encoder })(req, res, next);
+			await expressMsgpack({ encoder })(req, res, next);
 			res.json(originalBody);
 
 			expect(res.format).toHaveBeenCalledWith(expect.any(Object));
@@ -72,11 +72,11 @@ describe("expressMsgpack", () => {
 			expect(res.send).toHaveBeenCalledWith(result);
 		});
 
-		it("allows you to swap out the decoder", () => {
+		it("allows you to swap out the decoder", async () => {
 			const result = "hello, world";
 			const decoder = jest.fn().mockReturnValue(result);
 
-			expressMsgpack({ decoder })(req, res, next);
+			await expressMsgpack({ decoder })(req, res, next);
 
 			expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
 			const [, , callback] = readBodyMock.mock.calls[0];

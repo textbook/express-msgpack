@@ -1,13 +1,18 @@
 {
   "name": "express-msgpack-smoke",
   "description": "Smoke tests for express-msgpack",
+  "type": "module",
   "private": true,
   "dependencies": {
+    "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "jest": "^27.0.1",
     "supertest": "^6.0.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "jest": {
+    "transform": {}
   }
 }

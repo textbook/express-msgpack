@@ -35,7 +35,7 @@ Usage
 -----
 
 ```javascript
-const { default: msgpack } = require("express-msgpack");
+import msgpack from "express-msgpack";
 
 // ...
 app.use(msgpack());
@@ -46,20 +46,19 @@ Configuration
 
 To configure, pass options when you configure the middleware. Currently supported options are:
 
-Parameter | Description | Default
-----------|-------------|---------
-`decoder` | a function converting from MessagePack to JavaScript | `@msgpack/msgpack#decode`
-`encoder` | a function converting from JavaScript to MessagePack | `@msgpack/msgpack#encode` (with a wrapper to convert the result to a Buffer)
-`mimeType` | the MIME type to detect and set for MessagePack payloads | `"application/msgpack"`
+| Parameter  | Description                                              | Default                                                                      |
+|------------|----------------------------------------------------------|------------------------------------------------------------------------------|
+| `decoder`  | a function converting from MessagePack to JavaScript     | `@msgpack/msgpack#decode`                                                    |
+| `encoder`  | a function converting from JavaScript to MessagePack     | `@msgpack/msgpack#encode` (with a wrapper to convert the result to a Buffer) |
+| `mimeType` | the MIME type to detect and set for MessagePack payloads | `"application/msgpack"`                                                      |
 
 For example, to switch to the node-gyp C++ based [msgpack] library:
 
 ```javascript
-const { pack, unpack } = require("msgpack");
-const { default: msgpack } = require("express-msgpack");
+import msgpack from "express-msgpack";
+import { pack, unpack } from "msgpack";
 
 // ...
-
 app.use(msgpack({ decoder: unpack, encoder: pack }));
 ```
 
