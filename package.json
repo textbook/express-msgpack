@@ -68,6 +68,6 @@
     "testEnvironment": "node"
   },
   "engines": {
-    "node": ">=12.9.0"
+    "node": ">=14.0.0"
   }
 }
