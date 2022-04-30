@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist/*",
-    "build": "tsc",
+    "build": "tsc --project ./tsconfig.build.json",
     "e2e": "./bin/smoke.sh --local",
     "lint": "eslint . --ext=.js,.ts",
     "ship": "npm run lint && npm test && npm run e2e",
