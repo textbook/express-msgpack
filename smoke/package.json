@@ -6,7 +6,7 @@
   "dependencies": {
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
-    "jest": "^27.0.1",
+    "jest": "^28.1.2",
     "supertest": "^6.0.0"
   },
   "scripts": {
