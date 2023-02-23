@@ -1,5 +1,4 @@
-Express Msgpack
-===============
+# Express Msgpack
 
 [![License](https://img.shields.io/github/license/textbook/express-msgpack.svg)](https://github.com/textbook/express-msgpack/blob/main/LICENSE)
 [![Build Status](https://github.com/textbook/express-msgpack/workflows/Node.js%20CI/badge.svg?branch=main)](https://github.com/textbook/express-msgpack/actions)
@@ -9,8 +8,7 @@ Express Msgpack
 
 [Express] and [MessagePack], together at last. Uses [`@msgpack/msgpack`][1] by default.
 
-Functionality
--------------
+## Functionality
 
 Provides transparent middleware that can be used to support clients requesting
 `Accept: application/msgpack` from endpoints using `res.json` or sending
@@ -19,8 +17,7 @@ Provides transparent middleware that can be used to support clients requesting
 the background using `@msgpack/msgpack` (or any compatible library of your
 choice).
 
-Installation
-------------
+## Installation
 
 ```bash
 $ npm install --save express-msgpack
@@ -31,8 +28,7 @@ $ yarn add express-msgpack
 If you intend to use an alternative to `@msgpack/msgpack` (see Configuration)
 you can add the `--no-optional` flag; it's an optional dependency.
 
-Usage
------
+## Usage
 
 ```javascript
 import msgpack from "express-msgpack";
@@ -41,8 +37,16 @@ import msgpack from "express-msgpack";
 app.use(msgpack());
 ```
 
-Configuration
--------------
+### CommonJS
+
+```javascript
+const msgpack = require("express-msgpack").default;
+
+// ...
+app.use(msgpack());
+```
+
+## Configuration
 
 To configure, pass options when you configure the middleware. Currently supported options are:
 
@@ -62,8 +66,7 @@ import { pack, unpack } from "msgpack";
 app.use(msgpack({ decoder: unpack, encoder: pack }));
 ```
 
-Development
------------
+## Development
 
 The project has code linting and testing, using the following commands:
 

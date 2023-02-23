@@ -2,15 +2,23 @@
   "name": "express-msgpack",
   "version": "4.0.4",
   "description": "Transparent MessagePack middleware for Express",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/esm/index.js",
+  "exports": {
+    "require": "./dist/cjs/index.cjs",
+    "default": "./dist/esm/index.js"
+  },
+  "types": "dist/esm/index.d.ts",
   "type": "module",
   "files": [
     "dist/"
   ],
   "scripts": {
     "prebuild": "rimraf dist/*",
-    "build": "tsc --project ./tsconfig.build.json",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:cjs": "npm run compile -- --module commonjs --outDir dist/cjs",
+    "postbuild:cjs": "mv dist/cjs/index.js dist/cjs/index.cjs",
+    "build:esm": "npm run compile",
+    "compile": "tsc --project ./tsconfig.build.json",
     "e2e": "./bin/smoke.sh --local",
     "lint": "eslint . --ext=.js,.ts",
     "ship": "npm run lint && npm test && npm run e2e",
