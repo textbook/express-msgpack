@@ -1,6 +1,6 @@
 {
   "name": "express-msgpack",
-  "version": "4.0.4",
+  "version": "4.1.0",
   "description": "Transparent MessagePack middleware for Express",
   "main": "dist/esm/index.js",
   "exports": {
