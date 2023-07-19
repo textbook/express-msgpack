@@ -7,7 +7,7 @@ jest.mock("raw-body");
 
 describe("expressMsgpack", () => {
 	const originalBody = "foo, bar, baz";
-	const headers: { [key: string]: unknown } = {
+	const headers: Record<string, unknown> = {
 		"content-type": "application/msgpack",
 		"content-length": 42,
 	};
