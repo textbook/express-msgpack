@@ -5,6 +5,7 @@ export interface ExpressMsgpackOptions {
 	encoder: (body: unknown) => Buffer;
 	decoder: (body: Buffer) => unknown;
 	mimeType: string;
+    limit: string;
 }
 
 export default (overrides: Partial<ExpressMsgpackOptions> = {}): RequestHandler => {
@@ -26,7 +27,7 @@ export default (overrides: Partial<ExpressMsgpackOptions> = {}): RequestHandler 
 			if (new RegExp(`^${options.mimeType}`, "i").test(req.header("Content-Type") ?? "")) {
 				return readBody(
 					req,
-					{ length: req.header("Content-Length") },
+					{ length: req.header("Content-Length"), limit: options.limit },
 					bodyHandler(options, req, next)
 				);
 			}
@@ -61,5 +62,7 @@ const createOptions = async (overrides: Partial<ExpressMsgpackOptions>): Promise
 			?? await import("@msgpack/msgpack").then(({ encode }) => (body) => Buffer.from(encode(body))),
 		mimeType: overrides.mimeType
 			?? "application/msgpack",
+		limit: overrides.limit
+            ?? "100kb",
 	};
 };

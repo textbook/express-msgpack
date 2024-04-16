@@ -39,7 +39,7 @@ describe("expressMsgpack", () => {
 
 		await expressMsgpack()(req, res, next);
 
-		expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
+		expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42, limit: "100kb" }, expect.any(Function));
 		const [, , callback] = readBodyMock.mock.calls[0];
 
 		callback(error);
@@ -49,7 +49,7 @@ describe("expressMsgpack", () => {
 	it("handles error decoding the body", async () => {
 		await expressMsgpack()(req, res, next);
 
-		expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
+		expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42, limit: "100kb" }, expect.any(Function));
 		const [, , callback] = readBodyMock.mock.calls[0];
 
 		callback(null, {});
@@ -78,13 +78,19 @@ describe("expressMsgpack", () => {
 
 			await expressMsgpack({ decoder })(req, res, next);
 
-			expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42 }, expect.any(Function));
+			expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42, limit: "100kb" }, expect.any(Function));
 			const [, , callback] = readBodyMock.mock.calls[0];
 
 			callback(null, originalBody);
 			expect(decoder).toHaveBeenCalledWith(originalBody);
 			expect(req).toMatchObject({ body: result, _body: true });
 			expect(next).toHaveBeenCalledWith();
+		});
+
+		it("allows you to change body limit", async () => {
+			await expressMsgpack({ limit: "1mb" })(req, res, next);
+
+			expect(readBodyMock).toHaveBeenCalledWith(req, { length: 42, limit: "1mb" }, expect.any(Function));
 		});
 	});
 });
