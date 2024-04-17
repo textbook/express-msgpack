@@ -102,4 +102,22 @@ describe("expressMsgpack", () => {
 				});
 		});
 	});
+
+	describe("with a request limit", () => {
+		it("accepts appropriate requests", () => {
+			return request(createApp(msgpack({ limit: "16b" })))
+				.post("/api")
+				.send(raw)
+				.set("Content-Type", "application/msgpack")
+				.expect(200);
+		});
+
+		it("rejects oversized requests", () => {
+			return request(createApp(msgpack({ limit: "1b" })))
+				.post("/api")
+				.send(raw)
+				.set("Content-Type", "application/msgpack")
+				.expect(413);
+		});
+	});
 });

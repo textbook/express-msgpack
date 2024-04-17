@@ -38,6 +38,9 @@
     "typescript"
   ],
   "author": "Jonathan Sharpe <mail@jonrshar.pe>",
+  "contributors": [
+    "Alan Dzday <dzday@web.de>"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/textbook/express-msgpack/issues"

@@ -4,6 +4,7 @@ import readBody from "raw-body";
 export interface ExpressMsgpackOptions {
 	encoder: (body: unknown) => Buffer;
 	decoder: (body: Buffer) => unknown;
+	limit: string;
 	mimeType: string;
 }
 
@@ -26,7 +27,7 @@ export default (overrides: Partial<ExpressMsgpackOptions> = {}): RequestHandler 
 			if (new RegExp(`^${options.mimeType}`, "i").test(req.header("Content-Type") ?? "")) {
 				return readBody(
 					req,
-					{ length: req.header("Content-Length") },
+					{ length: req.header("Content-Length"), limit: options.limit },
 					bodyHandler(options, req, next)
 				);
 			}
@@ -59,6 +60,8 @@ const createOptions = async (overrides: Partial<ExpressMsgpackOptions>): Promise
 			?? await import("@msgpack/msgpack").then(({ decode }) => decode),
 		encoder: overrides.encoder
 			?? await import("@msgpack/msgpack").then(({ encode }) => (body) => Buffer.from(encode(body))),
+		limit: overrides.limit
+			?? "100kb",
 		mimeType: overrides.mimeType
 			?? "application/msgpack",
 	};
