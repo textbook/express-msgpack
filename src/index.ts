@@ -20,6 +20,9 @@ export default (overrides: Partial<ExpressMsgpackOptions> = {}): RequestHandler 
 				return res.format({
 					"application/json": () => _json.call(res, body),
 					[options.mimeType]: () => res.send(options.encoder(body)),
+					default: () => {
+						res.status(406).send("Not Acceptable");
+					},
 				});
 			};
 

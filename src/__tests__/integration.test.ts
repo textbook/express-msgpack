@@ -46,6 +46,13 @@ describe("expressMsgpack", () => {
 						expect(response.text).toEqual(packed);
 					});
 			});
+
+			it("rejects unsupported requests", () => {
+				return request(app)
+					.get("/api")
+					.set("Accept", "text/html")
+					.expect(406);
+			});
 		});
 
 		describe("post", () => {
@@ -78,6 +85,13 @@ describe("expressMsgpack", () => {
 					.set("Content-Type", "application/msgpack")
 					.expect("Content-Type", /^application\/json/)
 					.expect(200, unpacked);
+			});
+
+			it("rejects unsupported requests", () => {
+				return request(app)
+					.get("/api")
+					.set("Accept", "text/html")
+					.expect(406);
 			});
 		});
 	});
