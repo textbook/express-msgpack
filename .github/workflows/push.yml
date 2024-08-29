@@ -7,17 +7,17 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node: [ '16.0', '16', '18', '20' ]
+        node: [ '18.12', '18', '20', '22' ]
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node }}
         cache: 'npm'
     - run: npm ci
     - run: npm run lint
     - run: npm run test -- --coverage
-    - uses: paambaati/codeclimate-action@v5.0.0
+    - uses: paambaati/codeclimate-action@v6.0.0
       env:
         CC_TEST_REPORTER_ID: 47283c50a0f1654abe1454ac936de832b4c668e579eb10c1aefa1545e4e77e1d
     - run: npm run e2e
@@ -25,21 +25,24 @@ jobs:
     runs-on: ubuntu-22.04
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
+    permissions:
+      contents: read
+      id-token: write
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Get full tag
       id: full_tag
       run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
         cache: 'npm'
     - run: npm ci
     - run: npm run build
     - run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
       env:
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-    - run: npm publish
+    - run: npm publish --provenance
     - run: ./bin/smoke.sh
       env:
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
