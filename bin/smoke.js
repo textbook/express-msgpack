@@ -67,12 +67,11 @@ const results = await Promise.allSettled([
 const failures = results.filter(({ status }) => status === "rejected");
 
 if (failures.length > 0) {
-	const message = "Smoke testing failed";
-	if (!local) {
-		await exec(`npm unpublish ${packageSpec} '${message}'`);
-	}
 	for (const failure of failures) {
 		console.error(failure.reason);
 	}
-	throw new Error(message);
+	if (!local) {
+		await exec(`npm unpublish ${packageSpec}`);
+	}
+	throw new Error("Smoke testing failed");
 }
