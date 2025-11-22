@@ -38,4 +38,4 @@ jobs:
     - run: npm ci
     - run: npm run build
     - run: npm publish
-    - run: ./bin/smoke.sh --tag ${{ github.ref_name }}
+    - run: ./bin/smoke.js --tag ${{ github.ref_name }}
