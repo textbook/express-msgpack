@@ -36,7 +36,6 @@ if (local) {
 	packageSpec = `express-msgpack@${tag}`;
 }
 
-
 const pkgFile = {
 	name: "test-package",
 	version: "0.1.0",

@@ -10,18 +10,18 @@ app.use(msgpack());
 app.post("/test", (req, res) => res.json(req.body));
 
 const json = {
-	"int": 1,
-	"float": 0.5,
-	"boolean": true,
-	"null": null,
-	"string": "foo bar",
-	"array": [
+	int: 1,
+	float: 0.5,
+	boolean: true,
+	null: null,
+	string: "foo bar",
+	array: [
 		"foo",
 		"bar",
 	],
-	"object": {
-		"foo": 1,
-		"baz": 0.5,
+	object: {
+		foo: 1,
+		baz: 0.5,
 	},
 };
 const messagepack = Buffer.from([

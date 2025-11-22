@@ -32,7 +32,7 @@ export default (overrides: Partial<ExpressMsgpackOptions> = {}): RequestHandler 
 				return readBody(
 					req,
 					{ length: req.header("Content-Length"), limit: options.limit },
-					bodyHandler(options, req, next)
+					bodyHandler(options, req, next),
 				);
 			}
 
