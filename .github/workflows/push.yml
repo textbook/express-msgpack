@@ -17,9 +17,6 @@ jobs:
     - run: npm ci
     - run: npm run lint
     - run: npm run test -- --coverage
-    - uses: paambaati/codeclimate-action@v6.0.0
-      env:
-        CC_TEST_REPORTER_ID: 47283c50a0f1654abe1454ac936de832b4c668e579eb10c1aefa1545e4e77e1d
     - run: npm run e2e
   deploy:
     runs-on: ubuntu-latest
