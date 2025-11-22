@@ -19,7 +19,7 @@
     "postbuild:cjs": "mv dist/cjs/index.js dist/cjs/index.cjs",
     "build:esm": "npm run compile",
     "compile": "tsc --project ./tsconfig.build.json",
-    "e2e": "./bin/smoke.sh --local",
+    "e2e": "node ./bin/smoke.js --local",
     "lint": "eslint . --ext=.js,.ts",
     "ship": "npm run lint && npm test && npm run e2e",
     "test": "jest",

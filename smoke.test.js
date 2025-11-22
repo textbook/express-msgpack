@@ -1,3 +1,5 @@
+import { it } from "node:test";
+
 import express from "express";
 import msgpack from "express-msgpack";
 import request from "supertest";
