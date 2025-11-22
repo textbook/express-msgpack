@@ -46,6 +46,13 @@ describe("expressMsgpack", () => {
 						expect(response.text).toEqual(packed);
 					});
 			});
+
+			it("returns Not Acceptable if no mutually acceptable content type", () => {
+				return request(app)
+					.get("/api")
+					.set("Accept", "text/plain")
+					.expect(406);
+			});
 		});
 
 		describe("post", () => {
