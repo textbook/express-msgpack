@@ -1,8 +1,8 @@
-import { describe, it } from "node:test";
+const { describe, it } = require("node:test");
 
-import express from "express";
-import msgpack from "express-msgpack";
-import request from "supertest";
+const express = require("express");
+const msgpack = require("express-msgpack").default;
+const request = require("supertest");
 
 const app = express();
 app.use(express.json());
@@ -38,7 +38,7 @@ const messagepack = Buffer.from([
 ]);
 const text = messagepack.toString("utf8");
 
-describe("ES modules", () => {
+describe("CommonJS", () => {
 	it("handles msgpack -> msgpack", async () => {
 		await request(app)
 			.post("/test")

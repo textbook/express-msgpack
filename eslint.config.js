@@ -14,6 +14,12 @@ export default [
 		},
 	},
 	{
+		files: ["*.cjs"],
+		rules: {
+			"@typescript-eslint/no-require-imports": "off",
+		},
+	},
+	{
 		files: ["**/*.test.js", "**/*.test.ts"],
 		languageOptions: {
 			globals: jest.environments.globals.globals,
