@@ -4,13 +4,13 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [ '18.12', '18', '20', '22' ]
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+    - uses: actions/checkout@v6
+    - uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node }}
         cache: 'npm'
@@ -22,18 +22,18 @@ jobs:
         CC_TEST_REPORTER_ID: 47283c50a0f1654abe1454ac936de832b4c668e579eb10c1aefa1545e4e77e1d
     - run: npm run e2e
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
     permissions:
       contents: read
       id-token: write
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Get full tag
       id: full_tag
       run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v6
       with:
         node-version: '20'
         cache: 'npm'
