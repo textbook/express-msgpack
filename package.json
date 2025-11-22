@@ -71,7 +71,7 @@
     "typescript-eslint": "^8.47.0"
   },
   "dependencies": {
-    "raw-body": "^2.5.2"
+    "raw-body": "^3.0.2"
   },
   "jest": {
     "modulePathIgnorePatterns": [
