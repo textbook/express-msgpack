@@ -83,10 +83,10 @@ split into two files:
   - `integration.test.ts` - integration tests using [SuperTest] with a simple
     Express app using the middleware
 
-There is also a `smoke/` directory containing E2E/smoke tests for a deployed
-version of the package, used by `bin/smoke.sh`. If the `--local` argument is
+There is also a `smoke.test.js` file containing E2E/smoke tests for a deployed
+version of the package, used by `bin/smoke.js`. If the `--local` argument is
 supplied to the script the local version is packaged and tested , otherwise
-the specified `$TAG` version is installed from the registry and tested.
+the specified `-tag` version is installed from the registry and tested.
 
 [Express]: https://expressjs.com/
 [Jest]: https://jestjs.io/
