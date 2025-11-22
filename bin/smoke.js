@@ -58,7 +58,8 @@ const results = await Promise.allSettled([
 	await writeFile(join(workDir, "package.json"), JSON.stringify(pkgFile, null, 2), { encoding: "utf-8" });
 	await copyFile(join(packageDir, "smoke.test.js"), join(workDir, "smoke.test.js"));
 	await copyFile(join(packageDir, "smoke.test.cjs"), join(workDir, "smoke.test.cjs"));
-	await exec(["npm", "install", ...deps, packageSpec].join(" "), { cwd: workDir });
+	await exec(["npm", "install", "--no-optional", packageSpec].join(" "), { cwd: workDir });
+	await exec(["npm", "install", ...deps].join(" "), { cwd: workDir });
 
 	await exec("npm test", { cwd: workDir });
 	console.info("tests passed for %s", deps.join(" "));
