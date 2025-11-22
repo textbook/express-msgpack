@@ -48,12 +48,13 @@ app.use(msgpack());
 
 To configure, pass options when you configure the middleware. Currently supported options are:
 
-| Parameter  | Description                                              | Default                                                                      |
-|------------|----------------------------------------------------------|------------------------------------------------------------------------------|
-| `decoder`  | a function converting from MessagePack to JavaScript     | `@msgpack/msgpack#decode`                                                    |
-| `encoder`  | a function converting from JavaScript to MessagePack     | `@msgpack/msgpack#encode` (with a wrapper to convert the result to a Buffer) |
-| `mimeType` | the MIME type to detect and set for MessagePack payloads | `"application/msgpack"`                                                      |
-| `limit`    | The byte limit of the body. This is the number of bytes or any string format supported by [bytes](https://www.npmjs.com/package/bytes) | `"100kb"`                                                      |
+| Parameter  | Description  | Default |
+|---|---|---|
+| `allowUnacceptableResponse` | a boolean indicating whether the response should still be sent if the client doesn't set a compatible `Accept` type (rather than a 406 Not Acceptable response) | `false` |
+| `decoder` | a function converting from MessagePack to JavaScript | `@msgpack/msgpack#decode` |
+| `encoder` | a function converting from JavaScript to MessagePack | `@msgpack/msgpack#encode` (with a wrapper to convert the result to a Buffer) |
+| `mimeType` | the MIME type to detect and set for MessagePack payloads | `"application/msgpack"` |
+| `limit` | The byte limit of the body. This is the number of bytes or any string format supported by [bytes](https://www.npmjs.com/package/bytes) | `"100kb"` |
 
 For example, to switch to the node-gyp C++ based [msgpack] library:
 

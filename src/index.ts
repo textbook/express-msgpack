@@ -2,8 +2,9 @@ import { NextFunction, Request, RequestHandler } from "express";
 import readBody from "raw-body";
 
 export interface ExpressMsgpackOptions {
-	encoder: (body: unknown) => Buffer;
+	allowUnacceptableResponse: boolean;
 	decoder: (body: Buffer) => unknown;
+	encoder: (body: unknown) => Buffer;
 	limit: string;
 	mimeType: string;
 }
@@ -20,6 +21,9 @@ export default (overrides: Partial<ExpressMsgpackOptions> = {}): RequestHandler 
 				return res.format({
 					"application/json": () => _json.call(res, body),
 					[options.mimeType]: () => res.send(options.encoder(body)),
+					default: options.allowUnacceptableResponse
+						? () => _json.call(res, body)
+						: undefined,
 				});
 			};
 
@@ -56,6 +60,7 @@ const bodyHandler = (options: ExpressMsgpackOptions, req: Request, next: NextFun
 
 const createOptions = async (overrides: Partial<ExpressMsgpackOptions>): Promise<ExpressMsgpackOptions> => {
 	return {
+		allowUnacceptableResponse: overrides.allowUnacceptableResponse ?? false,
 		decoder: overrides.decoder
 			?? await import("@msgpack/msgpack").then(({ decode }) => decode),
 		encoder: overrides.encoder

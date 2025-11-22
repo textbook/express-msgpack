@@ -127,4 +127,13 @@ describe("expressMsgpack", () => {
 				.expect(413);
 		});
 	});
+
+	describe("allowing unacceptable response", () => {
+		it("returns OK if no mutually acceptable content type", () => {
+			return request(createApp(msgpack({ allowUnacceptableResponse: true })))
+				.get("/api")
+				.set("Accept", "text/plain")
+				.expect(200, unpacked);
+		});
+	});
 });
