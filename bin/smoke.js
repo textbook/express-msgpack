@@ -46,6 +46,9 @@ const pkgFile = {
 };
 
 const results = await Promise.allSettled([
+	{ express: "^5", msgpack: "^3" },
+	{ express: "^5", msgpack: "^2" },
+	{ express: "^5", msgpack: "^1.3.2" },
 	{ express: "^4", msgpack: "^3" },
 	{ express: "^4", msgpack: "^2" },
 	{ express: "^4", msgpack: "^1.3.2" },

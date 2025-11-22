@@ -51,7 +51,7 @@
     "@msgpack/msgpack": "^2.8.0"
   },
   "peerDependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1 || ^5"
   },
   "devDependencies": {
     "@codeyourfuture/eslint-config-standard": "^5.1.0",
