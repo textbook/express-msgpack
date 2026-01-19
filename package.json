@@ -53,7 +53,7 @@
     "express": "^4.17.1 || ^5"
   },
   "devDependencies": {
-    "@codeyourfuture/eslint-config-standard": "^7.0.2",
+    "@codeyourfuture/eslint-config-standard": "^8.0.0",
     "@msgpack/msgpack": "^3.1.3",
     "@tsconfig/node20": "^20.1.8",
     "@types/express": "^5.0.6",
